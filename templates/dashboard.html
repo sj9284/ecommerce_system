@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Dashboard!</h1>
+        <button class="btn" onclick="logout()">Logout</button>
+        <h2>Your Cart</h2>
+        <div class="cart">
+            {% if cart_items %}
+                {% for item in cart_items %}
+                    <p>{{ item[0] }} - Quantity: {{ item[1] }} - Price: ${{ item[3] if item[3] is not none else item[2] }} - Total: ${{ item[4] }}</p>
+                {% endfor %}
+                <p><strong>Total Cart Value: ${{ total_cart_value }}</strong></p>
+                <button class="btn" onclick="buyNow()">Buy Now</button>
+            {% else %}
+                <p>Your cart is empty.</p>
+            {% endif %}
+        </div>
+        {% for category, products in products_by_category.items() %}
+            <h2>{{ category }}</h2>
+            <div class="product-list">
+                {% for product in products %}
+                    <div class="product">
+                        <span>{{ product[1] }} - ${{ product[2] }}</span>
+                        <button class="btn" onclick="addToCart('{{ product[1] }}', null)">Add to Cart</button>
+                        <button class="btn" onclick="negotiate('{{ product[1] }}', {{ product[2] }})">Negotiate Price</button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

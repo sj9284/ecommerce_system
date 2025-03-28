@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Options</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Options</h1>
+        <p>Total Amount: ${{ total_amount }}</p>
+        <h2>Cart Summary</h2>
+        <div class="cart">
+            {% for item in cart_items %}
+                <p>{{ item[0] }} - Quantity: {{ item[1] }} - Total: ${{ item[4] }}</p>
+            {% endfor %}
+        </div>
+        <h2>Select Payment Method</h2>
+        <form id="payment-form">
+            <div class="payment-option">
+                <input type="radio" id="upi" name="payment_method" value="upi" checked>
+                <label for="upi">UPI</label>
+            </div>
+            <div class="payment-option">
+                <input type="radio" id="net_banking" name="payment_method" value="net_banking">
+                <label for="net_banking">Net Banking</label>
+                <div id="net_banking_details" class="payment-details" style="display: none;">
+                    <label for="account_number">Account Number</label>
+                    <input type="text" id="account_number" name="account_number">
+                    <label for="ifsc_code">IFSC Code</label>
+                    <input type="text" id="ifsc_code" name="ifsc_code">
+                </div>
+            </div>
+            <div class="payment-option">
+                <input type="radio" id="credit_card" name="payment_method" value="credit_card">
+                <label for="credit_card">Credit Card</label>
+                <div id="credit_card_details" class="payment-details" style="display: none;">
+                    <label for="card_number">Card Number</label>
+                    <input type="text" id="card_number" name="card_number">
+                    <label for="expiry">Expiry (MM/YY)</label>
+                    <input type="text" id="expiry" name="expiry">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv">
+                </div>
+            </div>
+            <button type="submit" class="btn">Confirm Payment</button>
+        </form>
+        <div id="payment-result"></div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

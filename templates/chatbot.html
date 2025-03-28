@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Negotiate Price for {{ product_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Negotiate Price for {{ product_name }}</h1>
+        <div id="chat-window" class="chat-window">
+            <p>Bot: {{ initial_message }}</p>
+        </div>
+        <input type="text" id="chat-input" placeholder="Type your offer..." onkeypress="if(event.key === 'Enter') sendMessage()">
+        <button class="btn" onclick="sendMessage()">Send</button>
+        <button class="btn" onclick="window.location.href='/dashboard'">Back to Dashboard</button>
+    </div>
+    <script>
+        const productName = "{{ product_name }}";
+        const productPrice = {{ product_price }};
+    </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
